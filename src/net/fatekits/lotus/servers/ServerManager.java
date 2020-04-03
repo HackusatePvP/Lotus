@@ -40,11 +40,9 @@ public class ServerManager {
             server.setOnline(onlinePlayers);
             return onlinePlayers;
         } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
             Lotus.getPlugin().getLogger().info(server.getName() + ": Unknown host.");
             return 0;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             Lotus.getPlugin().getLogger().info(server.getName() + ": connection refused.");
             return 0;
         }
