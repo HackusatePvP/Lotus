@@ -13,18 +13,26 @@ public class QueueTask extends BukkitRunnable {
     @Override
     public void run() {
         cool++;
-        if (cool == 5) {
+        if (cool == 3) {
             for (String s : Lotus.getPlugin().getConfig().getConfigurationSection("queues").getKeys(false)) {
                 FileConfiguration config = Lotus.getPlugin().getConfig();
                 String path = "queues." + s;
-                Bukkit.getLogger().info("[Queues] sending and updating for " + s);
-                if (QueueAPI.getQueueManager().getQueue(config.getString(path + ".name")).isRunning()) {
-                    if (QueueAPI.getQueueManager().getQueue(config.getString(path + ".name")).getQueuePlayers().size() != 0) {
-                        QueueAPI.getQueueManager().sendPlayers(QueueAPI.getQueueManager().getQueue(config.getString(path + ".name")));
+                Queue queue = QueueAPI.getQueueManager().getQueue(s);
+             //   Bukkit.getLogger().info("[Queues] sending and updating for " + s);
+                if (queue.isRunning()) {
+                    if (queue.getQueuePlayers().size() == queue.getMaxplayers()) {
+                        if (queue.getQueuePlayers().size() != 0) {
+                            QueueAPI.getQueueManager().sendPlayers(queue);
+                        }
+
+                        QueueAPI.getQueueManager().updatePositions(queue);
+                    } else {
+                        queue.getQueuePlayers().keySet().forEach(qplayer -> qplayer.getPlayer().sendMessage(format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-position-message"), qplayer.getPlayer())));
+                        QueueAPI.getQueueManager().updatePositions(queue);
                     }
-                    QueueAPI.getQueueManager().updatePositions(QueueAPI.getQueueManager().getQueue(config.getString(path + ".name")));
                 } else {
-                    QueueAPI.getQueueManager().getQueuePlayers().forEach(qplayer -> qplayer.getPlayer().sendMessage(format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-position-message"), qplayer.getPlayer())));
+                    queue.getQueuePlayers().keySet().forEach(qplayer -> qplayer.getPlayer().sendMessage(format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-position-message"), qplayer.getPlayer())));
+                    QueueAPI.getQueueManager().updatePositions(queue);
                 }
             }
             cool = 0;

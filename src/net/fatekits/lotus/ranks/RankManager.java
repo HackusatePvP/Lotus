@@ -6,8 +6,6 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.UUID;
 
 public class RankManager {
@@ -28,23 +26,32 @@ public class RankManager {
 
     public void loadRanks() {
         int count = 0;
-        for (String s : Lotus.getPlugin().getConfig().getConfigurationSection("ranks").getKeys(false)) {
-            String path = "ranks." + s;
-            Rank rank = new Rank(Lotus.getPlugin().getConfig().getString(path + ".name"));
-            ranks.put(rank.getName(), rank);
-            rank.setPrefix(Lotus.getPlugin().getConfig().getString(path + ".prefix"));
-            rank.setLadder(Lotus.getPlugin().getConfig().getInt(path + ".ladder"));
-            rank.setPermissions(Lotus.getPlugin().getConfig().getStringList(path + ".permissions"));
-            if (!s.equals("Default")) {
-                count++;
+        if (Lotus.getPlugin().getConfig().getConfigurationSection("ranks").getKeys(false) != null) {
+            for (String s : Lotus.getPlugin().getConfig().getConfigurationSection("ranks").getKeys(false)) {
+                if (s != null) {
+                    String path = "ranks." + s;
+                    Rank rank = new Rank(s);
+                    ranks.put(s, rank);
+                    rank.setName(rank.getName());
+                    rank.setPrefix(Lotus.getPlugin().getConfig().getString(path + ".prefix"));
+                    rank.setLadder(Lotus.getPlugin().getConfig().getInt(path + ".ladder"));
+                    rank.setPermissions(Lotus.getPlugin().getConfig().getStringList(path + ".permissions"));
+                    if (!s.equals("Default")) {
+                        count++;
+                    }
+                    if (count == Lotus.getPlugin().getConfig().getConfigurationSection("ranks").getKeys(false).size()) {
+                        Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
+                        Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
+                        Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
+                        Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
+                        Lotus.getPlugin().getPluginLoader().disablePlugin(Lotus.getPlugin());
+                    }
+                } else {
+                    Lotus.getPlugin().getLogger().warning("[Lotus] No ranks found.");
+                }
             }
-            if (count == Lotus.getPlugin().getConfig().getConfigurationSection("ranks").getKeys(false).size()) {
-                Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
-                Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
-                Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
-                Lotus.getPlugin().getLog().severe("[Lotus] Default rank not found! Please define \"Default:\" in your ranks configuration.");
-                Lotus.getPlugin().getPluginLoader().disablePlugin(Lotus.getPlugin());
-            }
+        } else {
+            Lotus.getPlugin().getLogger().warning("[Lotus] No ranks found.");
         }
     }
 

@@ -2,7 +2,9 @@ package net.fatekits.lotus.listeners;
 
 import net.fatekits.lotus.Lotus;
 import net.fatekits.lotus.profiles.Profile;
+import net.fatekits.lotus.servers.ServerAPI;
 import net.fatekits.lotus.utils.StringUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -15,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerListener implements Listener {
@@ -94,7 +97,7 @@ public class PlayerListener implements Listener {
         if (!profile.isStaff()) {
             String message = event.getMessage();
             if (message.toLowerCase().contains("server")) {
-                player.sendMessage(StringUtil.format("&c/queue <server>"));
+                player.sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-message")));
                 event.setCancelled(true);
             }
         }
@@ -105,8 +108,19 @@ public class PlayerListener implements Listener {
         event.setJoinMessage(null);
         Player player = event.getPlayer();
         player.getInventory().clear();
-        List<String> joinMessage = Lotus.getPlugin().getLangConfig().getConfig().getStringList("join-message");
+        List<String> joinMessage = format(Lotus.getPlugin().getLangConfig().getConfig().getStringList("join-message"), player);
         joinMessage.forEach(msg -> player.sendMessage(StringUtil.format(msg)));
+    }
+
+    private List<String> format(List<String> strings, Player player) {
+        List<String> returnTo = new ArrayList<>();
+        for (String s : strings) {
+            s = StringUtil.format(s);
+            s = s.replace("%PLAYER%", player.getName());
+            s = s.replace("%ONLINE%", ServerAPI.getTotalCount() + "");
+            returnTo.add(s);
+        }
+        return returnTo;
     }
 
 }

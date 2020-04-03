@@ -50,8 +50,10 @@ public class ServerInventory implements Listener {
                         for (String s : Lotus.getPlugin().getConfig().getConfigurationSection("servers").getKeys(false)) {
                             Bukkit.getLogger().info("[s] " + s);
                             Server server = Lotus.getPlugin().getServerManager().getServer(s);
-                            if (item.getItemMeta().getDisplayName().equals(server.getItemMeta().getDisplayName())) {
-                                player.performCommand(Lotus.getPlugin().getConfig().getString("servers." + s + ".command"));
+                            if (item.getItemMeta() != null) {
+                                if (item.getItemMeta().getDisplayName().equals(server.getItemMeta().getDisplayName())) {
+                                    player.performCommand(Lotus.getPlugin().getConfig().getString("servers." + s + ".command"));
+                                }
                             }
                         }
                     }
@@ -60,12 +62,16 @@ public class ServerInventory implements Listener {
         }
     }
 
-    public List<String> format(List<String> strings, Server server) {
+    private List<String> format(List<String> strings, Server server) {
         List<String> forReturn = new ArrayList<>();
         for (String s : strings) {
             s = StringUtil.format(s);
             s = s.replace("%ONLINE%", server.getOnline() + "");
-            s = s.replace("%QUEUESIZE%", QueueAPI.getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
+            if (QueueAPI.getQueueManager().getQueue(server.getName()) != null) {
+                s = s.replace("%QUEUESIZE%", QueueAPI.getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
+            } else {
+                Lotus.getPlugin().getLogger().severe("[Queue] Queues were not loaded properly please make sure the config is correct.");
+            }
             forReturn.add(s);
         }
         return forReturn;

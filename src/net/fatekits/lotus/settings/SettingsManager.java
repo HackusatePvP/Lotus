@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class SettingsManager implements Listener {
     FileConfiguration config = Lotus.getPlugin().getConfig();
     FileConfiguration lang = Lotus.getPlugin().getLangConfig().getConfig();
+
     public Inventory getSettingsInventory(Player player) {
         Inventory i = Bukkit.createInventory(null, config.getInt("settings.inventory.size"), StringUtil.format(config.getString("settings.inventory.name")));
         i.setItem(config.getInt("settings.scoreboard.slot"), getScoreboard(player));
@@ -67,24 +68,26 @@ public class SettingsManager implements Listener {
             Profile profile = Lotus.getPlugin().getProfileManager().getProfile(player.getUniqueId());
             if (event.getClickedInventory() != null) {
                 if (event.getCurrentItem() != null) {
-                    if (event.getClickedInventory().getName().equalsIgnoreCase(getSettingsInventory(player).getName())) {
-                        event.setCancelled(true);
-                        if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(getScoreboard(player).getItemMeta().getDisplayName())) {
-                            if (profile.isScoreboard()) {
-                                 player.sendMessage(StringUtil.format(lang.getString("scoreboard-false")));
-                                 profile.setScoreboard(false);
-                            } else {
-                                player.sendMessage(StringUtil.format(lang.getString("scoreboard-true")));
-                                profile.setScoreboard(true);
+                    if (event.getCurrentItem().getItemMeta() != null) {
+                        if (event.getClickedInventory().getName().equalsIgnoreCase(getSettingsInventory(player).getName())) {
+                            event.setCancelled(true);
+                            if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(getScoreboard(player).getItemMeta().getDisplayName())) {
+                                if (profile.isScoreboard()) {
+                                    player.sendMessage(StringUtil.format(lang.getString("scoreboard-false")));
+                                    profile.setScoreboard(false);
+                                } else {
+                                    player.sendMessage(StringUtil.format(lang.getString("scoreboard-true")));
+                                    profile.setScoreboard(true);
+                                }
                             }
-                        }
-                        if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(getChat(player).getItemMeta().getDisplayName())) {
-                            if (profile.isChat()) {
-                                player.sendMessage(StringUtil.format(lang.getString("chat-false")));
-                                profile.setChat(false);
-                            } else {
-                                player.sendMessage(StringUtil.format(lang.getString("chat-true")));
-                                profile.setChat(true);
+                            if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(getChat(player).getItemMeta().getDisplayName())) {
+                                if (profile.isChat()) {
+                                    player.sendMessage(StringUtil.format(lang.getString("chat-false")));
+                                    profile.setChat(false);
+                                } else {
+                                    player.sendMessage(StringUtil.format(lang.getString("chat-true")));
+                                    profile.setChat(true);
+                                }
                             }
                         }
                     }
@@ -92,5 +95,4 @@ public class SettingsManager implements Listener {
             }
         }
     }
-
 }

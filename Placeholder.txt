@@ -11,3 +11,16 @@ Scoreboard:
 Server Lore:
 %ONLINE% - Will get the number off players current online in that specific server.
 %QUEUESIZE% - Will get the size of that server's queue.
+
+Join Message:
+%PLAYER% - Will get the name of the player who joined.
+%ONLINE% - Will get the number of players online.
+%COUNT% - Will get the player join counter.
+
+Tablist:
+%PLAYER% - Get the player's name.
+%ONLINE% - Total amount of players on the proxy
+%RANK% - Player's rank
+%SERVER% - Get any server you have created in the config. Note you must type it in all caps.
+%SERVERONLINE% - Get the amount of players on that specific server. Note you must type it in all caps.
+%SERVERQUEUE% - Get the amount of players in that server's queue. Note you must type it in all caps.

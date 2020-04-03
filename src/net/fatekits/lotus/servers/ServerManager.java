@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServerManager {
+
     @Getter private Map<String, Server> servers = new HashMap<>();
 
     public Server getServer(String name) {
@@ -78,7 +79,6 @@ public class ServerManager {
             }
             String[] data = str.toString().split("§");
             int onlinePlayers = Integer.parseInt(data[1]);
-            System.out.print(onlinePlayers);
             server.setOnline(onlinePlayers);
         } catch (UnknownHostException e) {
             Lotus.getPlugin().getLogger().info(server.getName() + ": Unknown host. Make sure you typed the ip and port correctly.");
@@ -86,5 +86,6 @@ public class ServerManager {
             Lotus.getPlugin().getLogger().info(server.getName() + ": connection refused. Make sure the server is online.");
         }
     }
+
 
 }

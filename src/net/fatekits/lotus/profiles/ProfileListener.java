@@ -20,7 +20,7 @@ public class ProfileListener implements Listener {
             public void onSuccess(HashMap<String, Boolean> done) {
                 if (done.get(player.getUniqueId().toString()) != Boolean.TRUE) {
                     Lotus.getPlugin().getProfileManager().createUser(player);
-                    Lotus.getPlugin().getProfileManager().addProfile(player.getUniqueId(), new Profile(player.getUniqueId()));
+                    Lotus.getPlugin().getProfileManager().addProfile(player.getUniqueId(), new Profile(player.getUniqueId(), player));
                     Lotus.getPlugin().getProfileManager().load(player);
                 } else {
                     Lotus.getPlugin().getProfileManager().load(player);

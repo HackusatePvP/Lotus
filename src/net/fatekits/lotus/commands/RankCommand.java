@@ -29,10 +29,10 @@ public class RankCommand implements CommandExecutor {
                             Profile tar = Lotus.getPlugin().getProfileManager().getProfile(target.getUniqueId());
                             tar.setRank(rank);
                         } else {
-                            sender.sendMessage("Rank not found. Please type it exactly as it is in the config.yml");
+                            sender.sendMessage(StringUtil.format(config.getString("rank-not-found")));
                         }
                     } else {
-                        sender.sendMessage("Not a valid target.");
+                        sender.sendMessage(StringUtil.format(config.getString("target-not-found")));
                     }
                 }
             }
@@ -69,6 +69,8 @@ public class RankCommand implements CommandExecutor {
     }
 
     public String format(String s, Profile profile) {
-       return s = s.replace("%RANK%", profile.getRank());
+        s = s.replace("%RANK%", profile.getRank());
+        s = s.replace("%PLAYER%", profile.getPlayer().getName());
+        return s;
     }
 }

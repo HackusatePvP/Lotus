@@ -136,6 +136,11 @@ public class QueueManager {
                                 }
                             }
                         } else {
+                            if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass")) {
+                                String command = "send " + player.getName() + " " + queue.getName();
+                                sendPlayer(queuePlayer.getPlayer(), "get", command, queue);
+                                return;
+                            }
                             Bukkit.getLogger().info("[Queue] 3");
                             queuePlayer.setPosition(1);
                             queue.getQueuePlayers().put(queuePlayer, 1);
@@ -144,6 +149,11 @@ public class QueueManager {
                     } else {
                         if (!(queue.getQueuePlayers().size() > 1)) {
                             if (!queue.getQueuePlayers().containsKey(queuePlayer)) {
+                                if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass")) {
+                                    String command = "send " + player.getName() + " " + queue.getName();
+                                    sendPlayer(queuePlayer.getPlayer(), "get", command, queue);
+                                    return;
+                                }
                                 Bukkit.getLogger().info("[Queue] 4");
                                 queue.getQueuePlayers().put(inQueue, 1);
                                 queuePlayer.setPosition(1);
@@ -163,13 +173,12 @@ public class QueueManager {
                                 queue.getQueuePlayers().put(queuePlayer, getPosition(queuePlayer));
                                 inQueue.getPlayer().sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-non-donor")));
                                 messageDonor.add(queuePlayer);
-                                queuePlayers.add(queuePlayer);
                             } else {
                                 Bukkit.getLogger().info("[Queue] 6");
                                 queue.getQueuePlayers().put(queuePlayer, queue.getQueuePlayers().size() + 1);
                                 queuePlayer.setPosition(queuePlayers.size());
-                                queuePlayers.add(queuePlayer);
                             }
+                            queuePlayers.add(queuePlayer);
                         }
                     }
                 }

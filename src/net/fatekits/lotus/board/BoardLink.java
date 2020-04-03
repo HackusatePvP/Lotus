@@ -3,6 +3,7 @@ package net.fatekits.lotus.board;
 import net.fatekits.lotus.Lotus;
 import net.fatekits.lotus.queue.QueueAPI;
 import net.fatekits.lotus.servers.Server;
+import net.fatekits.lotus.servers.ServerAPI;
 import net.fatekits.lotus.utils.StringUtil;
 import io.github.thatkawaiisam.assemble.AssembleAdapter;
 import org.bukkit.Bukkit;
@@ -35,21 +36,12 @@ public class BoardLink implements AssembleAdapter {
                 s = s.replace("%PRIORITY%", QueueAPI.getQueueManager().getQueuePlayer(player).getPriority() + "");
                 s = s.replace("%QUEUESIZE%", QueueAPI.getQueueManager().getQueuePlayer(player).getQueue().getQueuePlayers().size() + "");
             }
-            s = s.replace("%ONLINE%", getTotalCount() + "");
+            s = s.replace("%ONLINE%", ServerAPI.getTotalCount() + "");
             if (Lotus.getPlugin().getRankManager().getRank(player) != null) {
                 s = s.replace("%RANK%", Lotus.getPlugin().getRankManager().getRank(player).getName() + "");
             }
             format.add(s);
         }
         return format;
-    }
-
-    private int getTotalCount() {
-        int count = Bukkit.getOnlinePlayers().size();
-        for (String s : Lotus.getPlugin().getConfig().getConfigurationSection("servers").getKeys(false)) {
-            Server server = Lotus.getPlugin().getServerManager().getServer(s);
-            count = count + server.getOnline();
-        }
-        return count;
     }
 }

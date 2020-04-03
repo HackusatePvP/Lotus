@@ -33,7 +33,7 @@ public class ProfileManager {
     }
 
     public void load(Player player) {
-        Profile playerProfile = new Profile(player.getUniqueId());
+        Profile playerProfile = new Profile(player.getUniqueId(), player);
         profiles.put(player.getUniqueId(), playerProfile);
         addProfile(player.getUniqueId(), playerProfile);
         final String SELECT = "SELECT NAME, IP, SCOREBOARD, TABLIST, CHAT, VISIBILITY, RANK, COLOR, STAFF FROM profiles WHERE UUID =?";
@@ -53,8 +53,12 @@ public class ProfileManager {
                     playerProfile.setRank(rs.getString("RANK"));
                     playerProfile.setColor(rs.getString("COLOR"));
                     playerProfile.setStaff(rs.getBoolean("STAFF"));
-                    for (String permission : Lotus.getPlugin().getRankManager().getRank(playerProfile.getRank()).getPermissions()) {
-                        Lotus.getPlugin().getRankManager().addPermissions(player, permission);
+                    if (Lotus.getPlugin().getRankManager().getRank(playerProfile.getRank()) != null) {
+                        for (String permission : Lotus.getPlugin().getRankManager().getRank(playerProfile.getRank()).getPermissions()) {
+                            Lotus.getPlugin().getRankManager().addPermissions(player, permission);
+                        }
+                    } else {
+                        Lotus.getPlugin().getRankManager().addRankPermissions(player, "Default");
                     }
                 }
             } catch (SQLException e) {

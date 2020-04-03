@@ -22,6 +22,7 @@ public class QueuesCommand implements CommandExecutor {
         Player player = (Player) sender;
         message.add("&7&m----------------------------");
         message.add("&9Queues: ");
+        message.add("");
         for (Queue queue : QueueAPI.getQueueManager().getQueues().values()) {
             message.add("&b* &7" + queue.getName() + ": &9" + queue.getQueuePlayers().size());
         }

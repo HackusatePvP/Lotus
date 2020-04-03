@@ -5,6 +5,7 @@
       <element id="module-output" name="Lotus" />
       <element id="dir-copy" path="$PROJECT_DIR$/resources" />
       <element id="extracted-dir" path="D:/Soruces/Assemble-master/target/assemble-1.0-SNAPSHOT.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/dep/Azazel-1.0-SNAPSHOT.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

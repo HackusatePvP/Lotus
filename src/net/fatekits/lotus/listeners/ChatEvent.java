@@ -18,14 +18,14 @@ public class ChatEvent implements Listener {
         Profile profile = Lotus.getPlugin().getProfileManager().getProfile(player.getUniqueId());
         event.setCancelled(true);
         if (!profile.isChat()) {
-            player.sendMessage(StringUtil.format("&cYou have chat turned off."));
+            player.sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("chat-off")));
             return;
         }
         for (Player online : Bukkit.getOnlinePlayers()) {
             Profile onpro = Lotus.getPlugin().getProfileManager().getProfile(online.getUniqueId());
             if (onpro.isChat()) {
                 Rank rank = Lotus.getPlugin().getRankManager().getRank(profile.getRank());
-                online.sendMessage(StringUtil.format(rank.getPrefix() + " " + profile.getColor() + player.getName() + "&8» &f" + event.getMessage()));
+                online.sendMessage(StringUtil.format(rank.getPrefix() + " " + profile.getColor() + player.getName() + " &8» &f" + event.getMessage()));
             }
         }
     }

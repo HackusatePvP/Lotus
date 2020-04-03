@@ -16,7 +16,7 @@ public class ColorCosmetic extends Cosmetic {
 
     @Override
     public ItemStack getItemStack() {
-        String path = "items.cosmetics.name-color";
+        String path = "cosmetics.name-color";
         ItemStack itemStack = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(StringUtil.format(Lotus.getPlugin().getConfig().getString(path + ".display-name")));

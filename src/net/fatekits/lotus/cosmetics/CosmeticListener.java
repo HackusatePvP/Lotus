@@ -17,7 +17,9 @@ public class CosmeticListener implements Listener {
                     if (event.getClickedInventory().getName().contains(Lotus.getPlugin().getCosmeticInventory().getCosmeticInventory().getName())) {
                         event.setCancelled(true);
                         Cosmetic cosmetic = Cosmetic.byName(event.getCurrentItem().getType().name());
-                        cosmetic.onClick(event.getCurrentItem(), player);
+                        if (cosmetic != null) {
+                            cosmetic.onClick(event.getCurrentItem(), player);
+                        }
                     }
                 }
             }

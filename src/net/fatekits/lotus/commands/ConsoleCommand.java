@@ -7,10 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class ConsoleCommand implements CommandExecutor {
-
+    private FileConfiguration config = Lotus.getPlugin().getLangConfig().getConfig();
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!(sender instanceof Player)) {
@@ -34,7 +35,7 @@ public class ConsoleCommand implements CommandExecutor {
                             Profile tar = Lotus.getPlugin().getProfileManager().getProfile(target.getUniqueId());
                             tar.setStaff(true);
                         } else {
-                            player.sendMessage(StringUtil.format("&cTarget not found."));
+                            player.sendMessage(StringUtil.format(config.getString("target-not-found")));
                         }
                     }
                 }
@@ -46,13 +47,13 @@ public class ConsoleCommand implements CommandExecutor {
                             Profile tar = Lotus.getPlugin().getProfileManager().getProfile(target.getUniqueId());
                             tar.setRank(rank);
                         } else {
-                            player.sendMessage(StringUtil.format("&cTarget not found."));
+                            player.sendMessage(StringUtil.format(config.getString("target-not-found")));
                         }
                     }
                 }
             }
         } else {
-            player.sendMessage(StringUtil.format("&cYou do not have permissions to use console commands."));
+            player.sendMessage(StringUtil.format(config.getString("no-permissions")));
         }
         return false;
     }
