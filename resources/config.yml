@@ -1,0 +1,194 @@
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "lotus"
+  username: "root"
+  password: ""
+
+items:
+  server-selector:
+    material: "COMPASS"
+    name: "SERVER_SELECTOR"
+    display-name: "&7* &9Server-Selector"
+    slot: 0
+    lore:
+      - ""
+      - "&7&oNavigate through the network"
+      - ""
+  visibility:
+    material-false: "INK_SACK"
+    material-false-data: "8"
+    material-true: "INK_SACK"
+    material-true-data: "10"
+    name: "Visibility"
+    display-name: "&7* &9Visibility"
+    slot: 2
+    lore:
+      - ""
+      - "&7&oToggle player visibility"
+      - ""
+  settings:
+    material: "ITEM_FRAME"
+    name: "ITEM_FRAME"
+    display-name: "&7* &9Settings"
+    slot: 4
+    lore:
+      - ""
+      - "&7&oChange your profile settings"
+      - ""
+  cosmetics:
+    material: "CHEST"
+    name: "CHEST"
+    display-name: "&7* &9Cosmetics"
+    slot: 6
+    lore:
+      - "&7&m-------------------------"
+      - "&7&oSecrets hide within"
+      - "&7&m---------------------------"
+
+scoreboard:
+  title: "&9&lFate&4&lNetwork"
+  lines:
+    queue:
+      - "&7&m-----------------------"
+      - "&7Online: &9%ONLINE%"
+      - "&7Rank: &9%RANK%"
+      - ""
+      - "&7Queue: &9%QUEUE%"
+      - "&7Position: &9%POSITION%&7/&9%QUEUESIZE%"
+      - ""
+      - "&b&Oplay.fatekits.net"
+      - "&7&m-----------------------"
+    hub:
+      - "&7&m-----------------------"
+      - "&7Online: &9%ONLINE%"
+      - "&7Rank: &9%RANK%"
+      - ""
+      - "&b&Oplay.fatekits.net"
+      - "&7&m-----------------------"
+
+settings:
+  inventory:
+    name: "&9Settings GUI"
+    size: 9
+  scoreboard:
+    material: "PAINTING"
+    name: "&9Scoreboard"
+    slot: 0
+    lore-true:
+      - "&7&m--------------------------"
+      - "&cClick to disable your scoreboard"
+      - "&7&m--------------------------"
+    lore-false:
+      - "&7&m---------------------------"
+      - "&aClikc to enable your scoreboard"
+      - "&7&m---------------------------"
+  chat:
+    material: "PAPER"
+    name: "&9Chat"
+    slot: 1
+    lore-true:
+      - "&7&m--------------------------"
+      - "&cClick to disable your chat"
+      - "&7&m--------------------------"
+    lore-false:
+      - "&7&m---------------------------"
+      - "&aClick to enable your chat"
+      - "&7&m---------------------------"
+
+items-inventory:
+  name: "&9Items"
+  size: 36
+
+server-gui:
+  name: "&9Servers"
+  size: 9
+
+servers:
+  KitPvP:
+    material: "DIAMOND_SWORD"
+    name: "&7* &9&lKitPvP"
+    lore:
+      - "&7&m----------------------"
+      - "&7Competitive &9KitPvP"
+      - "&7&m----------------------"
+    command: "queue kitpvp"
+    slot: 0
+    ip: "localhost"
+    port: 25567
+
+queues:
+  kitpvp:
+    name: "kitpvp"
+    maxplayers: 120
+    paused: false
+
+ranks:
+  Owner:
+    name: "Owner"
+    prefix: "&8[&4Owner&8]"
+    ladder: 9
+    permissions:
+      - "lotus.queue.bypass"
+      - "lotus.rank"
+  Fate:
+    name: "Fate"
+    prefix: "&8[&4Fate&8]"
+    ladder: 9
+    permissions:
+      - "this.is.a.permission"
+      - "lotus.rank"
+  Saber:
+    name: "Saber"
+    prefix: "&7[&9Saber&7]"
+    ladder: 8
+    permissions:
+      - "this.is.a.permission"
+  Berserker:
+    name: "Berserker"
+    prefix: "&7[&6Berserker&7]"
+    ladder: 7
+    permissions:
+      - "this.is.a.permission"
+  Lancer:
+    name: "Lancer"
+    prefix: "&7[&5Lancer&7]"
+    ladder: 6
+    permissions:
+      - "this.is.a.permission"
+  Assassin:
+    name: "Assassin"
+    prefix: "&7[&1Assassin&7]"
+    ladder: 5
+    permissions:
+      - "this.is.a.permission"
+  Archer:
+    name: "Assassin"
+    prefix: "&7[&1Assassin&7]"
+    ladder: 4
+    permissions:
+      - "this.is.a.permission"
+  Caster:
+    name: "Assassin"
+    prefix: "&7[&1Assassin&7]"
+    ladder: 3
+    permissions:
+      - "this.is.a.permission"
+  Rider:
+    name: "Assassin"
+    prefix: "&7[&1Assassin&7]"
+    ladder: 2
+    permissions:
+      - "this.is.a.permission"
+  Master:
+    name: "Assassin"
+    prefix: "&7[&1Assassin&7]"
+    ladder: 1
+    permissions:
+      - "this.is.a.permission"
+  Default:
+    name: "Default"
+    prefix: "&7[Default]"
+    ladder: 0
+    permissions:
+      - "this.is.a.permission"

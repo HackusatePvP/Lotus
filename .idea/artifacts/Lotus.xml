@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Lotus">
+    <output-path>$PROJECT_DIR$/out/artifacts/Lotus</output-path>
+    <root id="archive" name="Lotus.jar">
+      <element id="module-output" name="Lotus" />
+      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+      <element id="extracted-dir" path="D:/Soruces/Assemble-master/target/assemble-1.0-SNAPSHOT.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

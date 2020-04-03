@@ -1,0 +1,20 @@
+main: net.fatekits.lotus.Lotus
+name: Lotus
+version: "1.0.0"
+author: Hackusate_PvP
+website: anthrax.cc
+commands:
+  color:
+    description: Color command.
+  console:
+    description: Admin commands.
+  leavequeue:
+    description: Leave your current queue.
+  lotus:
+    description: Main command.
+  queue:
+    description: Main queue command.
+  queues:
+    description: List all queues.
+  rank:
+    description: Rank command.

@@ -1,0 +1,13 @@
+Here you will find different placeholders you can use.
+
+Scoreboard:
+%QUEUE% - Will display the current queue the player is in.
+%POSITION% - Will display the players current queue position.
+%PRIORITY% - Will display the players queue priority.
+%QUEUESIZE% - Will display the number of players currently in the queue
+%ONLINE% - Will display the number of players throughout the entire network
+%RANK% - Will display the players current rank.
+
+Server Lore:
+%ONLINE% - Will get the number off players current online in that specific server.
+%QUEUESIZE% - Will get the size of that server's queue.
