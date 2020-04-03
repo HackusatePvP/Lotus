@@ -105,90 +105,55 @@ server-gui:
   size: 9
 
 servers:
-  KitPvP:
+  YourServer:
     material: "DIAMOND_SWORD"
-    name: "&7* &9&lKitPvP"
+    name: "&7* &9&lYour-Server"
     lore:
       - "&7&m----------------------"
-      - "&7Competitive &9KitPvP"
+      - "&7Simple Lore"
+      - "&7Online: %ONLINE%" #Simple Placeholder
       - "&7&m----------------------"
-    command: "queue kitpvp"
-    slot: 0
-    ip: "localhost"
+    command: "queue yourserver"
+    slot: 0 #Slot placement in the server gui
+    ip: "localhost" #Make sure this information is right. This will ping the server and get the player count
+    port: 25567
+  YouServer2:
+    material: "DIAMOND_SWORD"
+    name: "&7* &9&lYour-Server"
+    lore:
+      - "&7&m----------------------"
+      - "&7Simple Lore"
+      - "&7&m----------------------"
+    command: "queue yourserver" #This must match whatever you put for queue name
+    slot: 0 #Slot placement in the server gui
+    ip: "localhost" #Make sure this information is right. This will ping the server and get teh player count
     port: 25567
 
 queues:
-  kitpvp:
-    name: "kitpvp"
+  yourserver:
+    name: "yourserver" #THIS HAS TO MATCH WHATEVER YOU PUT FOR SERVERS OR SERVER SELECTOR WILL NOT WORK
+    maxplayers: 120
+    paused: false #If this is true, the queue will stop sending players to the server and thus it will pause.
+  yourserver2:
+    name: "yourserver2" #This must match whatever you put for command in the servers section of the config.
     maxplayers: 120
     paused: false
 
-ranks:
-  Owner:
-    name: "Owner"
-    prefix: "&8[&4Owner&8]"
-    ladder: 9
-    permissions:
-      - "lotus.queue.bypass"
-      - "lotus.rank"
-  Fate:
-    name: "Fate"
-    prefix: "&8[&4Fate&8]"
-    ladder: 9
-    permissions:
+  Rank2: #It is recommended that this matches the name below.
+    name: "Rank2" #This is simply the name of the rank. It is recommended that this matches the name above.
+    prefix: "&7[&4Rank2&7]" #Prefix used in chat.
+    ladder: 2 # This is the queue priority, the higher the better.
+    permissions: #These are the permissions.
       - "this.is.a.permission"
-      - "lotus.rank"
-  Saber:
-    name: "Saber"
-    prefix: "&7[&9Saber&7]"
-    ladder: 8
-    permissions:
+  Rank1: #It is recommended that this matches the name below.
+    name: "Rank1" #This is simply the name of the rank. It is recommended that this matches the name above.
+    prefix: "&7[&cRank1&7]" #Prefix used in chat.
+    ladder: 1 # This is the queue priority, the higher the better.
+    permissions: #These are the permissions.
       - "this.is.a.permission"
-  Berserker:
-    name: "Berserker"
-    prefix: "&7[&6Berserker&7]"
-    ladder: 7
-    permissions:
-      - "this.is.a.permission"
-  Lancer:
-    name: "Lancer"
-    prefix: "&7[&5Lancer&7]"
-    ladder: 6
-    permissions:
-      - "this.is.a.permission"
-  Assassin:
-    name: "Assassin"
-    prefix: "&7[&1Assassin&7]"
-    ladder: 5
-    permissions:
-      - "this.is.a.permission"
-  Archer:
-    name: "Assassin"
-    prefix: "&7[&1Assassin&7]"
-    ladder: 4
-    permissions:
-      - "this.is.a.permission"
-  Caster:
-    name: "Assassin"
-    prefix: "&7[&1Assassin&7]"
-    ladder: 3
-    permissions:
-      - "this.is.a.permission"
-  Rider:
-    name: "Assassin"
-    prefix: "&7[&1Assassin&7]"
-    ladder: 2
-    permissions:
-      - "this.is.a.permission"
-  Master:
-    name: "Assassin"
-    prefix: "&7[&1Assassin&7]"
-    ladder: 1
-    permissions:
-      - "this.is.a.permission"
-  Default:
-    name: "Default"
-    prefix: "&7[Default]"
-    ladder: 0
-    permissions:
+  Default: #It is recommended that this matches the name below.
+    name: "Rank1" #This is simply the name of the rank. It is recommended that this matches the name above.
+    prefix: "&7[&fDefault&7]" #Prefix used in chat.
+    ladder: 0 # This is the queue priority, the higher the better.
+    permissions: #These are the permissions.
       - "this.is.a.permission"
