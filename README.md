@@ -24,6 +24,7 @@ servers:
     lore:
       - "&7&m----------------------"
       - "&7Online: %ONLINE%" #Simple Placeholder
+      - "&7Queue: %QUEUESIZE%"
       - "&7&m----------------------"
     command: "queue YourServer"
     slot: 0 #Slot placement in the server gui
