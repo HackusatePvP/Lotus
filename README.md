@@ -3,6 +3,7 @@ Current version: 1.0.1
 ## Features
 - Join Items (Server Selector, Player visibility, Settings, Cosmetics)
 - Scoreboard ([AssembleScoreboard](https://github.com/ThatKawaiiSam/Assemble))
+- Tablist ([AzazelTablist](https://github.com/bizarre/Azazel))
 - Queues (With API)
 - Very configurable
 - Ranking system
