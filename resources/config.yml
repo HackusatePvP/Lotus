@@ -110,10 +110,10 @@ servers:
     name: "&7* &9&lYour-Server"
     lore:
       - "&7&m----------------------"
-      - "&7Simple Lore"
       - "&7Online: %ONLINE%" #Simple Placeholder
+      - "&7Queue: %QUEUESIZE%"
       - "&7&m----------------------"
-    command: "queue yourserver"
+    command: "queue YourServer"
     slot: 0 #Slot placement in the server gui
     ip: "localhost" #Make sure this information is right. This will ping the server and get the player count
     port: 25567
@@ -124,18 +124,18 @@ servers:
       - "&7&m----------------------"
       - "&7Simple Lore"
       - "&7&m----------------------"
-    command: "queue yourserver" #This must match whatever you put for queue name
+    command: "queue YourServer2" #This must match whatever you put for queue name
     slot: 0 #Slot placement in the server gui
     ip: "localhost" #Make sure this information is right. This will ping the server and get teh player count
     port: 25567
 
 queues:
-  yourserver:
-    name: "yourserver" #THIS HAS TO MATCH WHATEVER YOU PUT FOR SERVERS OR SERVER SELECTOR WILL NOT WORK
+  YourServer:
+    name: "YourServer" #THIS HAS TO MATCH WHATEVER YOU PUT FOR SERVERS OR SERVER SELECTOR WILL NOT WORK
     maxplayers: 120
     paused: false #If this is true, the queue will stop sending players to the server and thus it will pause.
-  yourserver2:
-    name: "yourserver2" #This must match whatever you put for command in the servers section of the config.
+  YourServer2:
+    name: "YourServer2" #This must match whatever you put for command in the servers section of the config.
     maxplayers: 120
     paused: false
 
