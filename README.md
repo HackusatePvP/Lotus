@@ -15,7 +15,7 @@ To make sure the plugin works correctly you must have a MySQL database. For the 
 I have made a lang.yml for almost every message.
 
 ## Servers
-You can add your servers to the server selector via the config. You can add as many as you want! There are some placeholders you can use with the lore. View [Placeholder.txt](LINK)
+You can add your servers to the server selector via the config. You can add as many as you want! There are some placeholders you can use with the lore. View [Placeholder.txt](https://github.com/HackusatePvP/Lotus/blob/master/Placeholder.txt)
 ```yaml
 servers:
   YourServer:
