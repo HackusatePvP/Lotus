@@ -3,7 +3,7 @@ Current version: 1.0.0
 ## Features
 - Join Items (Server Selector, Player visibility, Settings, Cosmetics)
 - Scoreboard ([AssembleScoreboard](https://github.com/ThatKawaiiSam/Assemble))
-- Queues(With API)
+- Queues (With API)
 - Very configurable
 - Ranking system
 - MySQL Database
@@ -19,28 +19,27 @@ You can add your servers to the server selector via the config. You can add as m
 ```yaml
 servers:
   YourServer:
-      material: "DIAMOND_SWORD"
-      name: "&7* &9&lYour-Server"
-      lore:
-        - "&7&m----------------------"
-        - "&7Simple Lore"
-        - "&7Online: %ONLINE%" #Simple Placeholder
-        - "&7&m----------------------"
-      command: "queue yourserver"
-      slot: 0 #Slot placement in the server gui
-      ip: "localhost" #Make sure this information is right. This will ping the server and get the player count
-      port: 25567
+    material: "DIAMOND_SWORD"
+    name: "&7* &9&lYour-Server"
+    lore:
+      - "&7&m----------------------"
+      - "&7Online: %ONLINE%" #Simple Placeholder
+      - "&7&m----------------------"
+    command: "queue YourServer"
+    slot: 0 #Slot placement in the server gui
+    ip: "localhost" #Make sure this information is right. This will ping the server and get the player count
+    port: 25567
   YouServer2:
-      material: "DIAMOND_SWORD"
-      name: "&7* &9&lYour-Server"
-      lore:
-        - "&7&m----------------------"
-        - "&7Simple Lore"
-        - "&7&m----------------------"
-      command: "queue yourserver" #This must match whatever you put for queue name
-      slot: 0 #Slot placement in the server gui
-      ip: "localhost" #Make sure this information is right. This will ping the server and get teh player count
-      port: 25567
+    material: "DIAMOND_SWORD"
+    name: "&7* &9&lYour-Server"
+    lore:
+      - "&7&m----------------------"
+      - "&7Simple Lore"
+      - "&7&m----------------------"
+    command: "queue YourServer2" #This must match whatever you put for queue name
+    slot: 0 #Slot placement in the server gui
+    ip: "localhost" #Make sure this information is right. This will ping the server and get teh player count
+    port: 25567
 ```
 This plugin also comes with its own server pinger to get the amount of players that are online. The plugin refreshes the player count every minitue.
 
@@ -59,6 +58,12 @@ Lotus comes with a preset of ranks and permissions (The permissions are not hook
     ladder: 1 # This is the queue priority, the higher the better.
     permissions: #These are the permissions.
       - "this.is.a.permission"
+  Default: #THIS IS A REQUIRED RANK FOR THE PLUGIN TO LOAD
+    name: "Rank1" #This is simply the name of the rank. It is recommended that this matches the name above.
+    prefix: "&7[&fDefault&7]" #Prefix used in chat.
+    ladder: 0 # This is the queue priority, the higher the better.
+    permissions: #These are the permissions.
+      - "this.is.a.permission"
 ```
 To set a player to a certain rank you can execute the rank command. If you have buycraft or whatever its called now just make it execute the command /rank <player> <rank>. Be sure to spell the rank exactly how it is in the config. For exmaple for Starter rank do not type /rank player starter. The correct way would be /rank player Starter. The player rank's are stored in the database and the permissions are stored in the config.yml
 
@@ -66,12 +71,12 @@ To set a player to a certain rank you can execute the rank command. If you have 
 Make sure you have [lotus-sync](https://github.com/HackusatePvP/Lotus-sync/releases) in your bungeecord plugins folder. Queues will send one player every 3 seconds. You can add as many queues as you want!
 ```yaml
 queues:
-  yourserver:
-    name: "yourserver" #THIS HAS TO MATCH WHATEVER YOU PUT FOR SERVERS OR SERVER SELECTOR WILL NOT WORK
+  YourServer:
+    name: "YourServer" #THIS HAS TO MATCH WHATEVER YOU PUT FOR SERVERS OR SERVER SELECTOR WILL NOT WORK
     maxplayers: 120
     paused: false #If this is true, the queue will stop sending players to the server and thus it will pause.
-  yourserver2:
-    name: "yourserver2" #This must match whatever you put for command in the servers section of the config.
+  YourServer2:
+    name: "YourServer2" #This must match whatever you put for command in the servers section of the config.
     maxplayers: 120
     paused: false
 ```
