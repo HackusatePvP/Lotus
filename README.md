@@ -10,7 +10,7 @@ Current version: 1.0.1
 - MySQL Database
 
 ## Dependencies
-To make sure the plugin works correctly you must have a MySQL database. For the queues to work you will need to install [lotus-sync](https://github.com/HackusatePvP/Lotus-sync/releases) as a bungeecord plugin..
+To make sure the plugin works correctly you must have a MySQL database. For the queues to work you will need to install [lotus-sync](https://github.com/HackusatePvP/Lotus-sync/releases) as a bungeecord plugin.
 
 ## Lang.yml
 I have made a lang.yml for almost every message.
@@ -89,12 +89,12 @@ Lotus comes with several API's making additions to the plugin easy and simple. E
 ## QueueAPI
 With the queue api you can get any information involving the queue and the players in the queue's. 
 ```java
-Queue queue = QueueAPI.getQueueManager().getQueue("you can get a queue with a string");
-Queue queue = QueueAPI.getQueueManager().getQueue(player); //you can get a queue with a player
-QueuePlayer queuePlayer = QueueAPI.getQueueManager().getQueuePlayer(player); //This is a player object that stores the player's queue information such as position and priority
-Queue queue = QueueAPI.getQueue(queuePlayer) //you can get a queue with a queuePlayer
-int position = queuePlayer.getPosition(); //This is the position of the queue that the player is in
-int size = QueueAPI.getQueueManager().getQueue(queuePlayer).getQueueSize(); //This is the total size of the Queue
+Queue queue = QueueAPI.getQueue(player); //get the queue in which the player is in.
+Queue queue = QueueAPI.getQueue("you can get a queue with a string");
+QueuePlayer queuePlayer = QueueAPI.getQueuePlayer(player); //simple player object used for queues
+Queue queue = QueueAPI.getQueue(queuePlayer); //you can get a queue by using an object.
+int position = QueueAPI.getPositionPlayer(player);
+
 ```
 
 ## RankAPI
