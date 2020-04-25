@@ -43,9 +43,13 @@ public class BoardLink implements AssembleAdapter {
                 s = s.replace("%RANK%", Lotus.getPlugin().getRankManager().getRank(player).getName() + "");
             }
             for (Server server : Lotus.getPlugin().getServerManager().getServers().values()) {
-                s = s.replace("%" + server.getName().toUpperCase() + "%", server.getName());
-                s = s.replace("%" + server.getName().toUpperCase() + "ONLINE%", server.getOnline() + "");
-                s = s.replace("%" + server.getName().toUpperCase() + "QUEUE%", Lotus.getPlugin().getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
+                if (server != null) {
+                    s = s.replace("%" + server.getName().toUpperCase() + "%", server.getName());
+                    s = s.replace("%" + server.getName().toUpperCase() + "ONLINE%", server.getOnline() + "");
+                    if (Lotus.getPlugin().getQueueManager().getQueue(server.getName()) != null) {
+                        s = s.replace("%" + server.getName().toUpperCase() + "QUEUE%", Lotus.getPlugin().getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
+                    }
+                }
             }
             format.add(s);
         }

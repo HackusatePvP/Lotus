@@ -20,10 +20,10 @@ public class SpawnCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (args.length == 0) {
-            Location spawn = new Location(Bukkit.getWorld(config.getString("spawn.world")), config.getDouble("spawn.x"), config.getInt("spawn.y"), config.getDouble("spawn.x"), config.getFloat("spawn.pitch"), config.getFloat("spawn.yaw"));
-            try {
+            if (config.getString("spawn.x") != null) {
+                Location spawn = new Location(Bukkit.getWorld(config.getString("spawn.world")), config.getDouble("spawn.x"), config.getInt("spawn.y"), config.getDouble("spawn.x"), config.getFloat("spawn.pitch"), config.getFloat("spawn.yaw"));
                 player.teleport(spawn);
-            } catch (Exception e) {
+            } else {
                 player.sendMessage(StringUtil.format("&cSpawn is not defined."));
             }
         } else {
