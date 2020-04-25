@@ -1,6 +1,7 @@
 package net.fatekits.lotus.board;
 
 import net.fatekits.lotus.Lotus;
+import net.fatekits.lotus.queue.Queue;
 import net.fatekits.lotus.queue.QueueAPI;
 import net.fatekits.lotus.servers.Server;
 import net.fatekits.lotus.servers.ServerAPI;
@@ -20,7 +21,7 @@ public class BoardLink implements AssembleAdapter {
 
     @Override
     public List<String> getLines(Player player) {
-        if (QueueAPI.getQueueManager().inQueue(player)) {
+        if (Lotus.getPlugin().getQueueManager().inQueue(player)) {
             return getFormattedLines(Lotus.getPlugin().getConfig().getStringList("scoreboard.lines.queue"), player);
         }
         return getFormattedLines(Lotus.getPlugin().getConfig().getStringList("scoreboard.lines.hub"), player);
@@ -30,15 +31,21 @@ public class BoardLink implements AssembleAdapter {
         List<String> format = new ArrayList<>();
         for (String s : lines) {
             s = StringUtil.format(s);
-            if (QueueAPI.getQueueManager().inQueue(player)) {
-                s = s.replace("%QUEUE%", QueueAPI.getQueueManager().getQueuePlayer(player).getQueue().getName());
-                s = s.replace("%POSITION%", QueueAPI.getQueueManager().getQueuePlayer(player).getPosition() + "");
-                s = s.replace("%PRIORITY%", QueueAPI.getQueueManager().getQueuePlayer(player).getPriority() + "");
-                s = s.replace("%QUEUESIZE%", QueueAPI.getQueueManager().getQueuePlayer(player).getQueue().getQueuePlayers().size() + "");
+            s = s.replace("%PLAYER%", player.getName());
+            if (Lotus.getPlugin().getQueueManager().inQueue(player)) {
+                s = s.replace("%QUEUE%", Lotus.getPlugin().getQueueManager().getQueuePlayer(player).getQueue().getName());
+                s = s.replace("%POSITION%", Lotus.getPlugin().getQueueManager().getQueuePlayer(player).getPosition() + "");
+                s = s.replace("%PRIORITY%", Lotus.getPlugin().getQueueManager().getQueuePlayer(player).getPriority() + "");
+                s = s.replace("%QUEUESIZE%", Lotus.getPlugin().getQueueManager().getQueuePlayer(player).getQueue().getQueuePlayers().size() + "");
             }
             s = s.replace("%ONLINE%", ServerAPI.getTotalCount() + "");
             if (Lotus.getPlugin().getRankManager().getRank(player) != null) {
                 s = s.replace("%RANK%", Lotus.getPlugin().getRankManager().getRank(player).getName() + "");
+            }
+            for (Server server : Lotus.getPlugin().getServerManager().getServers().values()) {
+                s = s.replace("%" + server.getName().toUpperCase() + "%", server.getName());
+                s = s.replace("%" + server.getName().toUpperCase() + "ONLINE%", server.getOnline() + "");
+                s = s.replace("%" + server.getName().toUpperCase() + "QUEUE%", Lotus.getPlugin().getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
             }
             format.add(s);
         }

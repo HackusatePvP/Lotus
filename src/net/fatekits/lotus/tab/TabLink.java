@@ -118,8 +118,8 @@ public class TabLink implements TabAdapter {
         for (Server server : Lotus.getPlugin().getServerManager().getServers().values()) {
             s = s.replace("%" + server.getName().toUpperCase() + "%", server.getName());
             s = s.replace("%" + server.getName().toUpperCase() + "ONLINE%", server.getOnline() + "");
-            if (QueueAPI.getQueueManager().getQueue(server.getName()) != null) {
-                Queue queue = QueueAPI.getQueueManager().getQueue(server.getName());
+            if (Lotus.getPlugin().getQueueManager().getQueue(server.getName()) != null) {
+                Queue queue = Lotus.getPlugin().getQueueManager().getQueue(server.getName());
                 s = s.replace("%" + server.getName().toUpperCase() + "QUEUE%", queue.getQueuePlayers().size() + "");
             }
             //todo server status

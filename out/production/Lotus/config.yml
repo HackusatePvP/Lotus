@@ -5,11 +5,19 @@ mysql:
   username: "root"
   password: ""
 
+#This is for hcf servers if they run on a mysql database. You can then get deathbans or any other information you want. There is no official manager on the plugin to use this you must make it yourself.
+server:
+  host: "localhost"
+  port: 3306
+  database: "fall"
+  username: "root"
+  password: ""
+
 items:
   server-selector:
     material: "COMPASS"
     name: "SERVER_SELECTOR"
-    display-name: "&7* &9Server-Selector"
+    display-name: "&7* &6Server-Selector"
     slot: 0
     lore:
       - ""
@@ -21,7 +29,7 @@ items:
     material-true: "INK_SACK"
     material-true-data: "10"
     name: "Visibility"
-    display-name: "&7* &9Visibility"
+    display-name: "&7* &6Visibility"
     slot: 2
     lore:
       - ""
@@ -30,7 +38,7 @@ items:
   settings:
     material: "ITEM_FRAME"
     name: "ITEM_FRAME"
-    display-name: "&7* &9Settings"
+    display-name: "&7* &6Settings"
     slot: 4
     lore:
       - ""
@@ -39,41 +47,50 @@ items:
   cosmetics:
     material: "CHEST"
     name: "CHEST"
-    display-name: "&7* &9Cosmetics"
+    display-name: "&7* &6Cosmetics"
     slot: 6
     lore:
-      - "&7&m-------------------------"
-      - "&7&oSecrets hide within"
-      - "&7&m---------------------------"
+      - ""
+      - "&7&oChange your profile settings"
+      - ""
+  ender-butt:
+    material: "ENDER_PEARL"
+    name: "ENDER_PEARL"
+    display-name: "&7* &6Ender-Butt"
+    slot: 8
+    lore:
+      - ""
+      - "&7&oGet some cool things!"
+      - ""
 
 scoreboard:
-  title: "&9&lFate&4&lNetwork"
+  title: "&6Your Server"
   lines:
     queue:
       - "&7&m-----------------------"
-      - "&7Online: &9%ONLINE%"
-      - "&7Rank: &9%RANK%"
+      - "&7Online: &6%ONLINE%"
+      - "&7Rank: &6%RANK%"
       - ""
-      - "&7Queue: &9%QUEUE%"
-      - "&7Position: &9%POSITION%&7/&9%QUEUESIZE%"
+      - "&7Queue: &6%QUEUE%"
+      - "&7Position: &6%POSITION%&7/&9%QUEUESIZE%"
       - ""
-      - "&b&Oplay.fatekits.net"
+      - "&e&oplay.yourserver.com"
       - "&7&m-----------------------"
     hub:
       - "&7&m-----------------------"
-      - "&7Online: &9%ONLINE%"
-      - "&7Rank: &9%RANK%"
+      - "&7Online: &6%ONLINE%"
+      - "&7Rank: &6%RANK%"
       - ""
-      - "&b&Oplay.fatekits.net"
+      - "&b&oplay.yourserver.com"
       - "&7&m-----------------------"
 
 settings:
   inventory:
-    name: "&9Settings GUI"
+    name: "&6Settings GUI"
     size: 9
   scoreboard:
     material: "PAINTING"
-    name: "&9Scoreboard"
+    name: "&6Scoreboard"
     slot: 0
     lore-true:
       - "&7&m--------------------------"
@@ -85,7 +102,7 @@ settings:
       - "&7&m---------------------------"
   chat:
     material: "PAPER"
-    name: "&9Chat"
+    name: "&6Chat"
     slot: 1
     lore-true:
       - "&7&m--------------------------"
@@ -95,34 +112,56 @@ settings:
       - "&7&m---------------------------"
       - "&aClick to enable your chat"
       - "&7&m---------------------------"
+  tablist:
+    material: "ITEM_FRAME"
+    name: "&6Tablist"
+    slot: 2
+    lore-true:
+      - "&7&m--------------------------"
+      - "&cClick to disable your tablist"
+      - "&7&m--------------------------"
+    lore-false:
+      - "&7&m---------------------------"
+      - "&aClick to enable your tablist"
+      - "&7&m---------------------------"
 
 cosmetics:
   name-color:
-    display-name: "&7* &9Colored Names"
+    display-name: "&7* &6Colored Names"
     lore:
       - ""
       - "&7Change the color of your name."
       - ""
     slot: 0
+  double-jump:
+    display-name: "&7* &6Double-Jump"
+    lore:
+      - ""
+      - "&7Double jump away!"
+      - ""
 items-inventory:
-  name: "&9Items"
+  name: "&6Items"
   size: 36
 
 server-gui:
-  name: "&9Servers"
+  name: "&6Servers"
   size: 9
 cosmetic-inventory:
-  name: "&9Cosmetics"
+  name: "&6Cosmetics"
   size: 9
+
+border: #this is an example border where it limits the map to 500x500. Players can move 500 in every direction but if they go pass 500 it will tp them back to spawn
+  x: 500
+  y: 500
 
 servers:
   YourServer:
     material: "DIAMOND_SWORD"
-    name: "&7* &9&lYour-Server"
+    name: "&7* &6&lYour-Server"
     lore:
       - "&7&m----------------------"
-      - "&7Online: %ONLINE%" #Simple Placeholder
-      - "&7Queue: %QUEUESIZE%"
+      - "&7Online: &6%ONLINE%" #Simple Placeholder
+      - "&7Queue: &6%QUEUESIZE%"
       - "&7&m----------------------"
     command: "queue YourServer"
     slot: 0 #Slot placement in the server gui
@@ -130,10 +169,10 @@ servers:
     port: 25567
   YouServer2:
     material: "DIAMOND_SWORD"
-    name: "&7* &9&lYour-Server"
+    name: "&7* &6&lYour-Server"
     lore:
       - "&7&m----------------------"
-      - "&7Simple Lore"
+      - "&eSimple Lore"
       - "&7&m----------------------"
     command: "queue YourServer2" #This must match whatever you put for queue name
     slot: 0 #Slot placement in the server gui

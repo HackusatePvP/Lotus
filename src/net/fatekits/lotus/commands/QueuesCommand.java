@@ -1,5 +1,6 @@
 package net.fatekits.lotus.commands;
 
+import net.fatekits.lotus.Lotus;
 import net.fatekits.lotus.queue.Queue;
 import net.fatekits.lotus.queue.QueueAPI;
 import net.fatekits.lotus.utils.StringUtil;
@@ -23,7 +24,7 @@ public class QueuesCommand implements CommandExecutor {
         message.add("&7&m----------------------------");
         message.add("&9Queues: ");
         message.add("");
-        for (Queue queue : QueueAPI.getQueueManager().getQueues().values()) {
+        for (Queue queue : Lotus.getPlugin().getQueueManager().getQueues().values()) {
             message.add("&b* &7" + queue.getName() + ": &9" + queue.getQueuePlayers().size());
         }
         message.add("&7&m----------------------------");

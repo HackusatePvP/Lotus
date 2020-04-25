@@ -94,7 +94,6 @@ Queue queue = QueueAPI.getQueue("you can get a queue with a string");
 QueuePlayer queuePlayer = QueueAPI.getQueuePlayer(player); //simple player object used for queues
 Queue queue = QueueAPI.getQueue(queuePlayer); //you can get a queue by using an object.
 int position = QueueAPI.getPositionPlayer(player);
-
 ```
 
 ## RankAPI

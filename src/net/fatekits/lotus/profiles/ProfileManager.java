@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public class ProfileManager {
-    private final String INSERT = "INSERT INTO profiles VALUES(?,?,?,?,?,?,?,?,?,?)";
+    private final String INSERT = "INSERT INTO profiles VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     @Getter
     Lotus instance;
 
@@ -36,7 +36,7 @@ public class ProfileManager {
         Profile playerProfile = new Profile(player.getUniqueId(), player);
         profiles.put(player.getUniqueId(), playerProfile);
         addProfile(player.getUniqueId(), playerProfile);
-        final String SELECT = "SELECT NAME, IP, SCOREBOARD, TABLIST, CHAT, VISIBILITY, RANK, COLOR, STAFF FROM profiles WHERE UUID =?";
+        final String SELECT = "SELECT NAME, IP, SCOREBOARD, TABLIST, CHAT, VISIBILITY, RANK, COLOR, STAFF, DOUBLEJUMP, ENDERBUTT FROM profiles WHERE UUID =?";
         Bukkit.getScheduler().runTaskAsynchronously(Lotus.getPlugin(), () -> {
             try {
                 PreparedStatement preparedStatement = Lotus.getPlugin().getMySQL().getConnection().prepareStatement(SELECT);
@@ -53,6 +53,8 @@ public class ProfileManager {
                     playerProfile.setRank(rs.getString("RANK"));
                     playerProfile.setColor(rs.getString("COLOR"));
                     playerProfile.setStaff(rs.getBoolean("STAFF"));
+                    playerProfile.setDoublejump(rs.getBoolean("DOUBLEJUMP"));
+                    playerProfile.setEnderbutt(rs.getBoolean("ENDERBUTT"));
                     if (Lotus.getPlugin().getRankManager().getRank(playerProfile.getRank()) != null) {
                         for (String permission : Lotus.getPlugin().getRankManager().getRank(playerProfile.getRank()).getPermissions()) {
                             Lotus.getPlugin().getRankManager().addPermissions(player, permission);
@@ -73,7 +75,7 @@ public class ProfileManager {
         Profile profile = getProfile(player.getUniqueId());
 
         try {
-            PreparedStatement preparedStatement = Lotus.getPlugin().getMySQL().getConnection().prepareStatement("UPDATE profiles SET NAME = ?, IP = ?, SCOREBOARD = ?, TABLIST = ?, CHAT = ?, VISIBILITY = ?, RANK = ?, COLOR = ?, STAFF = ? WHERE UUID = ?");
+            PreparedStatement preparedStatement = Lotus.getPlugin().getMySQL().getConnection().prepareStatement("UPDATE profiles SET NAME = ?, IP = ?, SCOREBOARD = ?, TABLIST = ?, CHAT = ?, VISIBILITY = ?, RANK = ?, COLOR = ?, STAFF = ?, DOUBLEJUMP = ?, ENDERBUTT = ? WHERE UUID = ?");
             preparedStatement.setString(1, player.getName());
             preparedStatement.setString(2, player.getAddress().getAddress().getHostAddress());
             preparedStatement.setBoolean(3, profile.isScoreboard());
@@ -83,8 +85,9 @@ public class ProfileManager {
             preparedStatement.setString(7, profile.getRank());
             preparedStatement.setString(8, profile.getColor());
             preparedStatement.setBoolean(9, profile.isStaff());
-            // last
-            preparedStatement.setString(10, player.getUniqueId().toString());
+            preparedStatement.setBoolean(10, profile.isDoublejump());
+            preparedStatement.setBoolean(11, profile.isEnderbutt());
+            preparedStatement.setString(12, player.getUniqueId().toString());
             preparedStatement.executeUpdate();
             PermissionAttachment attachment = player.addAttachment(Lotus.getPlugin());
             player.removeAttachment(attachment);
@@ -156,6 +159,8 @@ public class ProfileManager {
                 preparedStatement.setString(8, "Default");
                 preparedStatement.setString(9, "&7");
                 preparedStatement.setBoolean(10, false);
+                preparedStatement.setBoolean(11, true);
+                preparedStatement.setBoolean(12, true);
                 preparedStatement.execute();
                 preparedStatement.executeUpdate();
                 Lotus.getPlugin().getProfileManager().load(player);

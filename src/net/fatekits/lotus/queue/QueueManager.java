@@ -65,11 +65,6 @@ public class QueueManager {
         }
         return null;
     }
-
-    public boolean hasConnection(Queue queue) {
-        return connection.contains(queue);
-    }
-
     public void resetConnection(Queue queue) {
         connection.remove(queue);
     }
@@ -78,11 +73,15 @@ public class QueueManager {
         return queuePlayer.getPosition();
     }
 
-    public int getQueueSize(Queue queue) {
-        return queue.getQueuePlayers().size();
+    public void removePlayerFromQueue(Player player) {
+        QueuePlayer queuePlayer = getQueuePlayer(player);
+        inQueue.remove(queuePlayer);
+        queuePlayers.remove(queuePlayer);
+        qplayers.remove(player);
+        playerInQueue.remove(player);
     }
 
-    void loadQueues() {
+    public void loadQueues() {
         for (String s : Lotus.getPlugin().getConfig().getConfigurationSection("queues").getKeys(false)) {
             FileConfiguration config = Lotus.getPlugin().getConfig();
             String path = "queues." + s;
@@ -110,9 +109,10 @@ public class QueueManager {
                         if (queuePlayers.size() > 1) {
                             if (inQueue.getQueue() != null) {
                                 if (inQueue.getQueue().getName().equalsIgnoreCase(queuePlayer.getQueue().getName())) {
-                                    if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass")) {
+                                    if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass") || player.isOp()) {
                                         String command = "send " + player.getName() + " " + queue.getName();
                                         sendPlayer(queuePlayer.getPlayer(), "get", command, queue);
+                                        player.sendMessage(StringUtil.format("&7Because of your rank you have bypassed the queue."));
                                         return;
                                     }
                                     if (queuePlayer.getPriority() > inQueue.getPriority()) {
@@ -125,18 +125,18 @@ public class QueueManager {
                                         queue.getQueuePlayers().put(queuePlayer, getPosition(queuePlayer));
                                         inQueue.getPlayer().sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-non-donor")));
                                         messageDonor.add(queuePlayer);
-                                        queuePlayers.add(queuePlayer);
                                     } else {
                                         Bukkit.getLogger().info("[Queue] 2");
                                         queue.getQueuePlayers().put(queuePlayer, queue.getQueuePlayers().size() + 1);
                                         queuePlayer.setPosition(queuePlayers.size());
                                         queuePlayers.add(queuePlayer);
+                                        messageAd.add(queuePlayer);
                                     }
-
+                                    queuePlayers.add(queuePlayer);
                                 }
                             }
                         } else {
-                            if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass")) {
+                            if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass") || player.isOp()) {
                                 String command = "send " + player.getName() + " " + queue.getName();
                                 sendPlayer(queuePlayer.getPlayer(), "get", command, queue);
                                 return;
@@ -149,12 +149,11 @@ public class QueueManager {
                     } else {
                         if (!(queue.getQueuePlayers().size() > 1)) {
                             if (!queue.getQueuePlayers().containsKey(queuePlayer)) {
-                                if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass")) {
+                                if (queuePlayer.getPlayer().hasPermission("lotus.queue.bypass") || player.isOp()) {
                                     String command = "send " + player.getName() + " " + queue.getName();
                                     sendPlayer(queuePlayer.getPlayer(), "get", command, queue);
                                     return;
                                 }
-                                Bukkit.getLogger().info("[Queue] 4");
                                 queue.getQueuePlayers().put(inQueue, 1);
                                 queuePlayer.setPosition(1);
                                 queuePlayers.add(queuePlayer);
@@ -165,7 +164,6 @@ public class QueueManager {
                             if (inQueue.getPriority() > queuePlayer.getPriority()) {
                                 int pos = queue.getQueuePlayers().get(inQueue);
                                 //queue player > inqueue
-                                Bukkit.getLogger().info("[Queue] 5");
                                 queuePlayer.setPosition(inQueue.getPosition());
                                 inQueue.setPosition(queuePlayer.getPosition() + 1);
                                 queue.getQueuePlayers().remove(inQueue);
@@ -174,9 +172,9 @@ public class QueueManager {
                                 inQueue.getPlayer().sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-non-donor")));
                                 messageDonor.add(queuePlayer);
                             } else {
-                                Bukkit.getLogger().info("[Queue] 6");
                                 queue.getQueuePlayers().put(queuePlayer, queue.getQueuePlayers().size() + 1);
                                 queuePlayer.setPosition(queuePlayers.size());
+                                messageAd.add(queuePlayer);
                             }
                             queuePlayers.add(queuePlayer);
                         }
@@ -184,6 +182,9 @@ public class QueueManager {
                 }
                 if (messageDonor.contains(queuePlayer)) {
                     queuePlayer.getPlayer().sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-rank-message")));
+                }
+                if (messageAd.contains(queuePlayer)) {
+                    queuePlayer.getPlayer().sendMessage(StringUtil.format(Lotus.getPlugin().getLangConfig().getConfig().getString("queue-advertisement-message")));
                 }
             }
         }
@@ -223,7 +224,7 @@ public class QueueManager {
                                 queue.getQueuePlayers().remove(q);
                                 queue.setPositions(q.getPosition() + 1);
                                 queue.getQueuePlayers().put(q, q.getPosition());
-                                Bukkit.getLogger().info("[queues] updating positions for " + q.getPlayer().getName() + "," + inQueue.getPlayer().getName());
+                                Bukkit.getLogger().info("[Queue] updating positions for " + q.getPlayer().getName() + "," + inQueue.getPlayer().getName());
                                 q.getPlayer().sendMessage(StringUtil.format("&7You position is now &9" + getPosition(q)));
                                 inQueue.getPlayer().sendMessage(StringUtil.format("&7Your position is now &9" + getPosition(inQueue)));
                             }
@@ -244,6 +245,7 @@ public class QueueManager {
         } catch (IOException e) {
             Bukkit.getLogger().log(Level.SEVERE, "[Queue] Target server is not online, please make sure you have typed the ip correctly and the server is online.");
             connection.add(queue);
+            removePlayerFromQueue(p);
         }
         p.sendPluginMessage(Lotus.getPlugin(Lotus.class), "BungeeCord", b.toByteArray());
     }

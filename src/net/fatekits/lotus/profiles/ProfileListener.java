@@ -40,7 +40,6 @@ public class ProfileListener implements Listener {
     @EventHandler
     public void onDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        Profile profile = Lotus.getPlugin().getProfileManager().getProfile(player.getUniqueId());
         Lotus.getPlugin().getProfileManager().unload(player);
 
     }

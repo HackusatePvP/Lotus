@@ -34,7 +34,7 @@ public class MySQL {
                 console.sendMessage(StringUtil.format("&7A secure connection to the MySQL has &asuccessfully &7been established."));
                 PreparedStatement profiles = this.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles (UUID VARCHAR(36)," +
                         "NAME TEXT, IP TEXT, SCOREBOARD BOOLEAN NOT NULL DEFAULT FALSE, TABLIST BOOLEAN NOT NULL DEFAULT FALSE, CHAT BOOLEAN NOT NULL DEFAULT FALSE, VISIBILITY BOOLEAN NOT NULL DEFAULT FALSE, " +
-                        "RANK TEXT, COLOR TEXT, STAFF BOOLEAN NOT NULL DEFAULT FALSE," +
+                        "RANK TEXT, COLOR TEXT, STAFF BOOLEAN NOT NULL DEFAULT FALSE, DOUBLEJUMP BOOLEAN NOT NULL DEFAULT FALSE, ENDERBUTT BOOLEAN NOT NULL DEFAULT FALSE, " +
                         "PRIMARY KEY (UUID))");
                 profiles.executeUpdate();
             } catch (SQLException e) {

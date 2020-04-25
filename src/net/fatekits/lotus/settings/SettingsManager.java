@@ -22,6 +22,7 @@ public class SettingsManager implements Listener {
         Inventory i = Bukkit.createInventory(null, config.getInt("settings.inventory.size"), StringUtil.format(config.getString("settings.inventory.name")));
         i.setItem(config.getInt("settings.scoreboard.slot"), getScoreboard(player));
         i.setItem(config.getInt("settings.chat.slot"), getChat(player));
+        i.setItem(config.getInt("settings.tablist.slot"), getTablist(player));
         return i;
     }
 
@@ -61,6 +62,24 @@ public class SettingsManager implements Listener {
         return itemStack;
     }
 
+    public ItemStack getTablist(Player player) {
+        Profile profile = Lotus.getPlugin().getProfileManager().getProfile(player.getUniqueId());
+        if (profile.isTablist()) {
+            ItemStack itemStack = new ItemStack(Material.getMaterial(config.getString("settings.tablist.material")));
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            itemMeta.setDisplayName(StringUtil.format(config.getString("settings.tablist.name")));
+            itemMeta.setLore(StringUtil.format(config.getStringList("settings.tablist.lore-false")));
+            itemStack.setItemMeta(itemMeta);
+            return itemStack;
+        }
+        ItemStack itemStack = new ItemStack(Material.getMaterial(config.getString("settings.tablist.material")));
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(StringUtil.format(config.getString("settings.tablist.name")));
+        itemMeta.setLore(StringUtil.format(config.getStringList("settings.tablist.lore-true")));
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
@@ -87,6 +106,15 @@ public class SettingsManager implements Listener {
                                 } else {
                                     player.sendMessage(StringUtil.format(lang.getString("chat-true")));
                                     profile.setChat(true);
+                                }
+                            }
+                            if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(getTablist(player).getItemMeta().getDisplayName())) {
+                                if (profile.isTablist()) {
+                                    player.sendMessage(StringUtil.format(lang.getString("tab-false")));
+                                    profile.setTablist(false);
+                                } else {
+                                    player.sendMessage(StringUtil.format(lang.getString("tab-true")));
+                                    profile.setTablist(true);
                                 }
                             }
                         }

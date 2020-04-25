@@ -46,7 +46,7 @@ public class RankCommand implements CommandExecutor {
 
         } else {
             if (args.length == 1) {
-                player.sendMessage("&cUsage: /rank <" + args[0] + "> <rank>");
+                player.sendMessage(StringUtil.format("&cUsage: /rank <" + args[0] + "> <rank>"));
             } else if (args.length == 2) {
                 Player target = Bukkit.getPlayerExact(args[0]);
                 if (target != null) {

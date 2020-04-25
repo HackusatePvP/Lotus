@@ -1,6 +1,7 @@
 package net.fatekits.lotus.cosmetics;
 
 import net.fatekits.lotus.cosmetics.impl.ColorCosmetic;
+import net.fatekits.lotus.cosmetics.impl.DoubleJump;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -12,6 +13,7 @@ public abstract class Cosmetic {
     private static Map<String, Cosmetic> byName = new HashMap<>();
 
     private static final Cosmetic COLOR = new ColorCosmetic();
+    private static final Cosmetic DOUBLE_JUMP = new DoubleJump();
 
     private String name;
 

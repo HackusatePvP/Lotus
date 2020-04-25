@@ -67,8 +67,8 @@ public class ServerInventory implements Listener {
         for (String s : strings) {
             s = StringUtil.format(s);
             s = s.replace("%ONLINE%", server.getOnline() + "");
-            if (QueueAPI.getQueueManager().getQueue(server.getName()) != null) {
-                s = s.replace("%QUEUESIZE%", QueueAPI.getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
+            if (Lotus.getPlugin().getQueueManager().getQueue(server.getName()) != null) {
+                s = s.replace("%QUEUESIZE%", Lotus.getPlugin().getQueueManager().getQueue(server.getName()).getQueuePlayers().size() + "");
             } else {
                 Lotus.getPlugin().getLogger().severe("[Queue] Queues were not loaded properly please make sure the config is correct.");
             }

@@ -1,9 +1,6 @@
 package net.fatekits.lotus.items;
 
-import net.fatekits.lotus.items.impl.Cosmetics;
-import net.fatekits.lotus.items.impl.ServerSelector;
-import net.fatekits.lotus.items.impl.Settings;
-import net.fatekits.lotus.items.impl.Visibility;
+import net.fatekits.lotus.items.impl.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
@@ -17,6 +14,7 @@ public abstract class Items {
     private static final Items VISIBILITY = new Visibility();
     private static final Items SETTINGS = new Settings();
     private static final Items COSMETICS = new Cosmetics();
+    private static final Items ENDER_BUTT = new EnderButt();
 
     private String name;
 
@@ -37,5 +35,7 @@ public abstract class Items {
 
     public abstract String getItemDisplayName();
 
-    public abstract void onClick(Player player, ItemStack itemStack);
+    public void onClick(Player player, ItemStack itemStack) {
+
+    }
 }

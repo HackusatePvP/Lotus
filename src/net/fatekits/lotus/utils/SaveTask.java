@@ -19,7 +19,7 @@ public class SaveTask extends BukkitRunnable {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 Profile profile = Lotus.getPlugin().getProfileManager().getProfile(player.getUniqueId());
                 try {
-                    PreparedStatement preparedStatement = Lotus.getPlugin().getMySQL().getConnection().prepareStatement("UPDATE profiles SET NAME = ?, IP = ?, SCOREBOARD = ?, TABLIST = ?, CHAT = ?, VISIBILITY = ?, RANK = ?, COLOR = ?, STAFF = ? WHERE UUID = ?");
+                    PreparedStatement preparedStatement = Lotus.getPlugin().getMySQL().getConnection().prepareStatement("UPDATE profiles SET NAME = ?, IP = ?, SCOREBOARD = ?, TABLIST = ?, CHAT = ?, VISIBILITY = ?, RANK = ?, COLOR = ?, STAFF = ?, DOUBLEJUMP = ?, ENDERBUTT = ? WHERE UUID = ?");
                     preparedStatement.setString(1, player.getName());
                     preparedStatement.setString(2, player.getAddress().getAddress().getHostAddress());
                     preparedStatement.setBoolean(3, profile.isScoreboard());
@@ -29,8 +29,10 @@ public class SaveTask extends BukkitRunnable {
                     preparedStatement.setString(7, profile.getRank());
                     preparedStatement.setString(8, profile.getColor());
                     preparedStatement.setBoolean(9, profile.isStaff());
+                    preparedStatement.setBoolean(10, profile.isDoublejump());
+                    preparedStatement.setBoolean(11, profile.isEnderbutt());
                     // last
-                    preparedStatement.setString(10, player.getUniqueId().toString());
+                    preparedStatement.setString(12, player.getUniqueId().toString());
                     preparedStatement.executeUpdate();
                     Bukkit.getLogger().info("[Lotus] Updated all profile entries.");
                 } catch (SQLException e) {
@@ -40,12 +42,6 @@ public class SaveTask extends BukkitRunnable {
                 Lotus.getPlugin().getLangConfig().saveConfig();
                 left = 0;
             }
-        }
-        if (count == 43195) {
-            Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(StringUtil.format("&cServer restarting in 5 seconds")));
-        }
-        if (count == 43200) {
-            Bukkit.getServer().shutdown();
         }
     }
 }

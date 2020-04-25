@@ -16,6 +16,7 @@ public class ItemsInventory {
         i.setItem(config.getInt("items.visibility.slot"), Items.byName("Visibility").getItemType(player));
         i.setItem(config.getInt("items.settings.slot"), Items.byName("ITEM_FRAME").getItemType(player));
         i.setItem(config.getInt("items.cosmetics.slot"), Items.byName("CHEST").getItemType(player));
+        i.setItem(config.getInt("items.ender-butt.slot"), Items.byName("ENDER_PEARL").getItemType(player));
         return i;
     }
 

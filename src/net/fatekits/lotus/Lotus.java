@@ -11,6 +11,7 @@ import net.fatekits.lotus.cosmetics.CosmeticInventory;
 import net.fatekits.lotus.cosmetics.CosmeticListener;
 import net.fatekits.lotus.items.ItemListener;
 import net.fatekits.lotus.items.ItemsInventory;
+import net.fatekits.lotus.listeners.BorderEvent;
 import net.fatekits.lotus.listeners.ChatEvent;
 import net.fatekits.lotus.listeners.FixEvents;
 import net.fatekits.lotus.listeners.PlayerListener;
@@ -18,6 +19,8 @@ import net.fatekits.lotus.profiles.ProfileListener;
 import net.fatekits.lotus.profiles.ProfileManager;
 import net.fatekits.lotus.queue.QueueAPI;
 import net.fatekits.lotus.queue.QueueListener;
+import net.fatekits.lotus.queue.QueueManager;
+import net.fatekits.lotus.queue.QueueTask;
 import net.fatekits.lotus.ranks.RankAPI;
 import net.fatekits.lotus.ranks.RankManager;
 import net.fatekits.lotus.servers.ServerAPI;
@@ -60,6 +63,8 @@ public final class Lotus extends JavaPlugin {
     private RankAPI rankAPI;
     private ServerAPI serverAPI;
     private TabConfig tabConfig;
+    private QueueManager queueManager;
+    private QueueTask queueTask;
 
     public void onEnable() {
         plugin = this;
@@ -80,12 +85,10 @@ public final class Lotus extends JavaPlugin {
         registerListeners();
         log.info("[Lotus] pre-loading servers...");
         Lotus.getPlugin().getServerManager().loadServers();
-        log.info("[Lotus] loading ServerAPI...");
-        serverAPI = new ServerAPI();
         log.info("[Lotus] pre-loading all ranks");
         Lotus.getPlugin().getRankManager().loadRanks();
-        log.severe("[Lotus] loading RankAPI...");
-        rankAPI = new RankAPI();
+        log.info("[Lotus] loading queues");
+        queueManager.loadQueues();
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         // allow to send to BungeeCord
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "Return", pcl = new PluginChannelListener());
@@ -114,6 +117,7 @@ public final class Lotus extends JavaPlugin {
         getCommand("queue").setExecutor(new QueueCommand());
         getCommand("queues").setExecutor(new QueuesCommand());
         getCommand("rank").setExecutor(new RankCommand());
+        getCommand("spawn").setExecutor(new SpawnCommand());
     }
 
     private void registerManagers() {
@@ -127,15 +131,18 @@ public final class Lotus extends JavaPlugin {
         rankManager = new RankManager();
         colorGUI = new ColorGUI();
         settingsManager = new SettingsManager();
-        queueAPI = new QueueAPI(this);
+        queueAPI = new QueueAPI();
         serverTask = new ServerTask();
         serverTask.runTaskTimer(this, 0, 20);
         cosmeticInventory = new CosmeticInventory();
+        queueManager = new QueueManager();
+        queueTask = new QueueTask();
+        queueTask.runTaskTimer(Lotus.getPlugin(), 0, 20);
     }
 
     private void registerListeners() {
         Arrays.asList(new ProfileListener(), new ServerInventory(), new ItemListener(), new ColorListener(), new ChatEvent(), new SettingsManager(), new PlayerListener(), new FixEvents(), new QueueListener()
-                , new CosmeticListener())
+                , new CosmeticListener(), new BorderEvent())
                 .forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 

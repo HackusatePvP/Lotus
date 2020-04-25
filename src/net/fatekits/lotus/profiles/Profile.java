@@ -11,7 +11,7 @@ import java.util.UUID;
 public class Profile {
     private final UUID uuid;
     private String name,IP,rank,color;
-    private boolean scoreboard,tablist,chat,visibility,staff;
+    private boolean scoreboard,tablist,chat,visibility,staff,doublejump,enderbutt;
     private Player player;
 
     public Profile(UUID uuid, Player player) {
