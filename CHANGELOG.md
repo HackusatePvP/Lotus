@@ -1,5 +1,5 @@
 # Change-logs
-## Update [1.0.2](LINK)
+## Update [1.0.2](https://github.com/HackusatePvP/Lotus/releases/tag/1.0.2)
 
 ### Additions
 - You now now customise chat in the lang.yml
